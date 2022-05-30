@@ -1,8 +1,10 @@
 import { types } from "../types/types";
 
 const inicialState = {
-  session: false, 
-  admin: false
+  session: false,
+  admin: false,
+  steep: 3,
+  maxSteep: 3
 };
 
 export const uiReducer = (state = inicialState, action) => {
@@ -12,6 +14,12 @@ export const uiReducer = (state = inicialState, action) => {
         ...state,
         modalOpen: true,
         favoritesOpen: false,
+      };
+    case types.uiChangeStep:
+      console.log(action.payload);
+      return {
+        ...state,
+        steep: action.payload
       };
     default:
       return state;

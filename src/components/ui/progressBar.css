@@ -16,7 +16,7 @@
     color: #7d7d7d;
 }
 
-.progressbar li p:hover {
+.progressbar li:hover {
     cursor: pointer;
 }
 

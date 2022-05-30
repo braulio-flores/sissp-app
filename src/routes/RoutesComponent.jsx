@@ -10,7 +10,8 @@ const RoutesComponent = () => {
         <BrowserRouter>
         <Routes>
           <Route exact path="/logeo" element={<LoginComponent />}/>
-          <Route path="/index" element={<BaseIndex />} />
+          <Route exact path="/index" element={<BaseIndex />} />
+          <Route exact path="/*" element={<BaseIndex />} />
         </Routes>
       </BrowserRouter>
       </>

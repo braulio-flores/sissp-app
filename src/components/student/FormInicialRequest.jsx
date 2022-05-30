@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import TitleWindow from "../ui/TitleWindow";
 import "./FormInicialRequest.css";
 
 const FormInicialRequest = () => {
@@ -64,14 +65,12 @@ const FormInicialRequest = () => {
 
   return (
     <>
-      <div className="container font-weight-bold text-center p-5 mb-0">
-        <mark>
-          El presente formulario solo es de ayuda para ti como estudiante, te
-          ayudara a saber si cuentas con los requisitos necesarios para poder
-          dar inicio a tu tramite y gestion del servicio social y asi agilizar
-          este mismo.
-        </mark>
-      </div>
+      <TitleWindow
+        title="Formulario Evaluacion de Requisitos"
+        descriptionPage="El presente formulario te servira de apoyo a ti como estudiante, para
+          saber si cuentas con los requisitos necesarios para poder dar inicio a
+          tu tramite y gestion del servicio social y asi agilizar este mismo."
+      />
       <div className="container mt-0">
         <form>
           {/* INPUT TIPO CHECK PARA VER QUE TIPO DE ALUMNO ERES */}
@@ -173,6 +172,7 @@ const FormInicialRequest = () => {
                   <a
                     href="https://www.tramites.upiicsa.ipn.mx/Default.aspx?ReturnUrl=%2f"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Tramites Upiicsa
                   </a>
@@ -225,6 +225,7 @@ const FormInicialRequest = () => {
                   <a
                     href="https://serviciosdigitales.imss.gob.mx/gestionAsegurados-web-externo/vigencia"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     Servicios Digitales IMMS
                   </a>
@@ -274,7 +275,11 @@ const FormInicialRequest = () => {
                 </p>
                 <p className="mt-0">
                   Puedes consultarlo en la siguiente liga:{" "}
-                  <a href="https://www.gob.mx/curp/" target="_blank">
+                  <a
+                    href="https://www.gob.mx/curp/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     Consulta CURP
                   </a>
                 </p>
@@ -343,6 +348,7 @@ const FormInicialRequest = () => {
               <a
                 href="https://serviciosocial.ipn.mx/infoServSoc/InfoServSocListaPerfiles.do"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Vacantes por Carrera
               </a>
@@ -363,6 +369,7 @@ const FormInicialRequest = () => {
               <a
                 href="https://serviciosocial.ipn.mx/usuario/RegistroPrestatario.do"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Registro Prestatario (Empresa o Gobierno)
               </a>
@@ -373,6 +380,7 @@ const FormInicialRequest = () => {
               <a
                 href="https://www.upiicsa.ipn.mx/assets/files/upiicsa/estudiantes/servicio-social/calendario-servicio-social-2022.pdf"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 Consulta las fechas SS 2022
               </a>
