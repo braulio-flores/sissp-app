@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, Navigate, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
@@ -21,9 +21,9 @@ const NavBar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item active">
-              <a className="nav-link" href="/">
-                Home
-              </a>
+              <NavLink className="nav-link" to="/">
+                Inicio
+              </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
@@ -34,10 +34,57 @@ const NavBar = () => {
                 Proceso
               </NavLink>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/">
-                Admin
+            <li class="nav-item dropdown">
+              <a
+                to="index/admin"
+                className="nav-link dropdown-toggle"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Gestion UPIICSA
               </a>
+
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <NavLink
+                    className="dropdown-item"
+                    to="/index/admin/validation"
+                  >
+                    Validaciones SISS
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="dropdown-item"
+                    to="/index/admin/documentationI"
+                  >
+                    Recepción Documentación Inicial
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    className="dropdown-item"
+                    to="/index/admin/documentationF"
+                  >
+                    Recepción Documentación Final
+                  </NavLink>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    <NavLink
+                      className="dropdown-item"
+                      to="/index/admin/manageprof"
+                    >
+                      Gestión de Profesores
+                    </NavLink>
+                  </a>
+                </li>
+              </ul>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="/">
@@ -51,6 +98,15 @@ const NavBar = () => {
                 // style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 FAQ
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                to="index/proffesors"
+                className="nav-link"
+                // style={({ isActive }) => (isActive ? activeStyle : undefined)}
+              >
+                Profesores Disponibles
               </NavLink>
             </li>
           </ul>

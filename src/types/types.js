@@ -7,4 +7,7 @@ export const types = {
 
 
     uiChangeStep: '[ui] Change Current Step',   
+
+    uiRequestValidation: '[ui] Requested Validation',   
+
 }

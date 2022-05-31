@@ -9,11 +9,11 @@ const ProgressBar = () => {
   const { maxSteep } = useSelector(data=>data.ui);
 
   return (
-    <div className="container m-5">
+    <div className="container mt-5 mb-5">
       <ul className="progressbar">
         {
           progressSteepsCatalog.map(({ steepItemName }, i)=>{
-            return <ProgressBarItem key={i} steepItemName={steepItemName} i={i} active={maxSteep>i ? "active" : ""} />
+            return <ProgressBarItem key={i} steepItemName={steepItemName} i={i+1} active={maxSteep>i ? "active" : ""} />
           })
         }
       </ul>

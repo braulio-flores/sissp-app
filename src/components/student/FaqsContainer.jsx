@@ -1,5 +1,5 @@
 import React from "react";
-import { faq } from "../../mocks/qafMock";
+import { faq } from "../../resources/mocks/qafMock";
 import FaqsFormAdd from "./FaqsFormAdd";
 import FaqsItem from "./FaqsItem";
 

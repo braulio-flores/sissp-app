@@ -3,8 +3,11 @@ import { types } from "../types/types";
 const inicialState = {
   session: false,
   admin: false,
-  steep: 3,
-  maxSteep: 3
+  steep: 7,
+  maxSteep: 4,
+  validationPage: {
+    statusRequested: false,
+  },
 };
 
 export const uiReducer = (state = inicialState, action) => {
@@ -16,10 +19,16 @@ export const uiReducer = (state = inicialState, action) => {
         favoritesOpen: false,
       };
     case types.uiChangeStep:
-      console.log(action.payload);
       return {
         ...state,
-        steep: action.payload
+        steep: action.payload,
+      };
+    case types.uiRequestValidation:
+      return {
+        ...state,
+        validationPage: {
+          statusRequested: true,
+        },
       };
     default:
       return state;

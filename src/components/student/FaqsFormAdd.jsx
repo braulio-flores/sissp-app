@@ -17,7 +17,7 @@ const FaqsFormAdd = () => {
       </div>
       <button
         type="button"
-        className="btn btn-outline-primary mt-1 btn-lg btn-block"
+        className="btn btn-outline-success mt-1 btn-lg btn-block"
       >
         Realizar Pregunta
       </button>
