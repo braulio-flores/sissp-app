@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   openModalAction,
   setActiveProfessor,
+  setAdminMode,
   setTypeOfModal,
 } from "../../actions/ui";
 
@@ -21,6 +23,18 @@ const ProffesorsListItem = ({ item }) => {
     dispatch(setActiveProfessor(item));
     dispatch(setTypeOfModal(3));
   };
+
+  const {pathname} = useLocation();
+
+  useEffect(() => {
+    if (pathname === '/index/admin/manageprof') {
+      dispatch(setAdminMode(true));
+    }else{
+      dispatch(setAdminMode(false));
+    }
+  
+  }, [])
+  
 
   return (
     <div

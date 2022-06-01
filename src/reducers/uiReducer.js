@@ -1,4 +1,7 @@
+
 import { types } from "../types/types";
+
+
 
 const inicialState = {
   session: false,

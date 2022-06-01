@@ -19,9 +19,12 @@ const customStyles = {
   },
 };
 
+
 Modal.setAppElement("#root");
 
 const ModalValidate = () => {
+
+
   const dispatch = useDispatch();
   const {
     modalOpen,
@@ -30,7 +33,7 @@ const ModalValidate = () => {
     activeProfessor: ap,
   } = useSelector((data) => data.ui);
 
-  console.log(ap);
+
 
   const { valuesForm, handleInputChange, reset, updateValues } = useForm({
     inputName: "",
@@ -155,14 +158,14 @@ const ModalValidate = () => {
             <i className="far fa-save"></i>
             <span>
               {" "}
-              Validar <i className="bi bi-check-circle-fill"></i>
+              Actualizar <i className="bi bi-check-circle-fill"></i>
             </span>
           </button>{" "}
           <button type="button" className="btn btn-outline-danger btn-block">
             <i className="far fa-save"></i>
             <span>
               {" "}
-              No Validar <i className="bi bi-x-lg"></i>
+              Cancelar <i className="bi bi-x-lg"></i>
             </span>
           </button>{" "}
           {/* <button type="button" className="btn btn-danger btn-block">
@@ -282,7 +285,7 @@ const ModalValidate = () => {
             <textarea
               type="text"
               className="form-control"
-              placeholder="Comentario que resivira el estudiante"
+              placeholder="Comentario que recibira el estudiante"
               rows="5"
               name="notes"
             ></textarea>
