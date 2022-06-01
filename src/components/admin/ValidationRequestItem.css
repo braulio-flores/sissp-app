@@ -1,0 +1,14 @@
+.itemToValidate:hover{
+    cursor: pointer;
+    filter: drop-shadow(1px 2px 15px green);
+}
+
+.itemToValidate{
+    transition: 0.5s;
+}
+
+.validateCheckContainer{
+    transition: 1s;
+}
+
+

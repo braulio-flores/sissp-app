@@ -1,13 +1,55 @@
 import { types } from "../types/types";
 import Swal from "sweetalert2";
 
-export const openModal = () => {
+
+export const setAdminMode = (modeAd) => {
+  return {
+    type: types.uiAdminMode,
+    payload: modeAd
+  };
+};
+
+
+export const setActiveProfessor = (professor) => {
+  return {
+    type: types.uiSetActiveProfessor,
+    payload: professor
+  };
+};
+
+export const deleteActiveProfessor = () => {
+  return {
+    type: types.uiDeleteActiveProfessor,
+  };
+};
+
+export const setTypeOfModal = (modal) => {
+  return {
+    type: types.uiSetTypeOfModal,
+    payload: modal
+  };
+};
+
+export const setActiveStudent = (studentValue) => {
+  return {
+    type: types.uiSetActiveStudent,
+    payload: studentValue
+  };
+};
+
+export const deleteActiveStudent = () => {
+  return {
+    type: types.uiDeleteActiveStudent,
+  };
+};
+
+export const openModalAction = () => {
   return {
     type: types.uiOpenModal,
   };
 };
 
-export const closeModal = () => {
+export const closeModalAction = () => {
   return {
     type: types.uiCloseModal,
   };

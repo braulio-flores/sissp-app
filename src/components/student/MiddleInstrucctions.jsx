@@ -1,14 +1,5 @@
 import React from "react";
 import TitleWindow from "../ui/TitleWindow";
-import filters from "../../resources/images/filters.png";
-import medios from "../../resources/images/medios.png";
-import formRequestImg from "../../resources/images/formRequest.png";
-import concentimeintoImg from "../../resources/images/concentimiento.png";
-import sstype from "../../resources/images/sstype.png";
-import preregistroImagen from "../../resources/images/preregistroForm.png";
-import validationRequest from "../../resources/images/validationRequest1.png";
-import validationRequestCreated from "../../resources/images/validationRequestCreated.png";
-import { Link } from "react-router-dom";
 
 const MiddleInstrucctions = () => {
   return (

@@ -11,11 +11,15 @@ export const useForm = ( inicialSate = {} ) => {
         });
     };
 
+    const updateValues = (newState) => {
+        setValuesForm(newState);
+    };
+
     const reset = ( newFormState = inicialSate) => {
         setValuesForm(inicialSate);
     };
  
 
-    return { valuesForm,handleInputChange,reset };  
+    return { valuesForm,handleInputChange,reset, updateValues};  
 
 };

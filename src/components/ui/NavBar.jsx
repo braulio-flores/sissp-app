@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light p-2">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="/index">
           SAPS
         </a>
         <button
@@ -34,9 +34,9 @@ const NavBar = () => {
                 Proceso
               </NavLink>
             </li>
-            <li class="nav-item dropdown">
+            <li className="nav-item dropdown">
               <a
-                to="index/admin"
+                href="index/admin"
                 className="nav-link dropdown-toggle"
                 id="navbarDropdown"
                 role="button"
@@ -46,7 +46,7 @@ const NavBar = () => {
                 Gestion UPIICSA
               </a>
 
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
                   <NavLink
                     className="dropdown-item"
@@ -72,22 +72,20 @@ const NavBar = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <hr class="dropdown-divider" />
+                  <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">
-                    <NavLink
-                      className="dropdown-item"
-                      to="/index/admin/manageprof"
-                    >
-                      Gestión de Profesores
-                    </NavLink>
-                  </a>
+                  <NavLink
+                    className="dropdown-item"
+                    to="/index/admin/manageprof"
+                  >
+                    Gestión de Profesores
+                  </NavLink>
                 </li>
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/">
+              <a className="nav-link" href="/index">
                 Guias y Links
               </a>
             </li>

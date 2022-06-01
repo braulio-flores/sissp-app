@@ -1,12 +1,27 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  openModalAction,
+  setActiveProfessor,
+  setTypeOfModal,
+} from "../../actions/ui";
 
-const ProffesorsListItem = ({
-  name,
-  academy,
-  vacants,
-  contact,
-  disponibility,
-}) => {
+const ProffesorsListItem = ({ item }) => {
+  const { name, academy, vacants, contact, disponibility } = item;
+  const { admionMode } = useSelector((data) => data.ui);
+
+  const dispatch = useDispatch();
+
+  const handleClickRequest = () => {
+    console.log("aqui se debe de mandar un aviso de que se solicito");
+  };
+
+  const handleClickEdit = () => {
+    dispatch(openModalAction());
+    dispatch(setActiveProfessor(item));
+    dispatch(setTypeOfModal(3));
+  };
+
   return (
     <div
       className="card"
@@ -24,16 +39,27 @@ const ProffesorsListItem = ({
           {"\u00A0"} Numero: {contact.number} <br />
         </p>
       </div>
-      <div class="card-footer bg-transparent border-transparent">
-        <button
-          disabled={!disponibility}
-          className={`btn ${
-            disponibility ? "btn-success" : "btn-outline-secondary"
-          }`}
-          style={{ bottom: "2px" }}
-        >
-          Solicitar Disponibilidad
-        </button>
+      <div className="card-footer bg-transparent border-transparent">
+        {admionMode ? (
+          <button
+            onClick={handleClickEdit}
+            className="btn btn-success"
+            style={{ bottom: "2px" }}
+          >
+            Editar Registro
+          </button>
+        ) : (
+          <button
+            onClick={handleClickRequest}
+            disabled={!disponibility}
+            className={`btn ${
+              disponibility ? "btn-success" : "btn-outline-secondary"
+            }`}
+            style={{ bottom: "2px" }}
+          >
+            Solicitar Disponibilidad
+          </button>
+        )}
       </div>
     </div>
   );

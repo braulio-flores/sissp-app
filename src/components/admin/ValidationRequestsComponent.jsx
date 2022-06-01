@@ -1,5 +1,6 @@
 import React from "react";
 import TitleWindow from "../ui/TitleWindow";
+import ValidationRequestContainer from "./ValidationRequestContainer";
 
 const ValidationRequestsComponent = () => {
   return (
@@ -9,6 +10,7 @@ const ValidationRequestsComponent = () => {
         descriptionPage="En este apartado encontraras las solicitudes de validacion que se tienen pendientes, asi como el detalle de estas mismas."
         mt="mt-0"
       />
+      <ValidationRequestContainer />
     </>
   );
 };

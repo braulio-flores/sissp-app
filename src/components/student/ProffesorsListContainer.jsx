@@ -8,7 +8,7 @@ const ProffesorsListContainer = () => {
       <div className="row row-cols-1 row-cols-md-3 g-4">
         {
             professorsCatalog.map((item, i)=>{
-                return <ProffesorsListItem key={i} {...item}/>
+                return <ProffesorsListItem key={i} item = {item}/>
             })
         }
       </div>
