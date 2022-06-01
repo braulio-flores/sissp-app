@@ -84,11 +84,7 @@ const NavBar = () => {
                 </li>
               </ul>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="/index">
-                Guias y Links
-              </a>
-            </li>
+            
             <li className="nav-item">
               <NavLink
                 to="index/faqs"
@@ -105,6 +101,11 @@ const NavBar = () => {
                 // style={({ isActive }) => (isActive ? activeStyle : undefined)}
               >
                 Profesores Disponibles
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="index/enlaces">
+                Guias y Links
               </NavLink>
             </li>
           </ul>

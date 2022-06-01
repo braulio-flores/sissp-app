@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import  Swal  from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import {
   openModalAction,
@@ -15,6 +16,13 @@ const ProffesorsListItem = ({ item }) => {
   const dispatch = useDispatch();
 
   const handleClickRequest = () => {
+    // AQUI VOY A PONER UN ALERT AUNQUE ESTE ALERT DEBERIA DE IR EN EL ACTION
+    Swal.fire({
+      icon: 'success',
+      title: 'Solicitud Enviada',
+      text: 'Espera a que el profesor revise y se ponga en contacto contigo.',
+    })
+
     console.log("aqui se debe de mandar un aviso de que se solicito");
   };
 

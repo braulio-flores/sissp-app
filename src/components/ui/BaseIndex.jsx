@@ -8,6 +8,7 @@ import ValidationRequestsComponent from "../admin/ValidationRequestsComponent";
 import HomeMain from "./HomeMain";
 import DocumentationInicialReviewComponent from "../admin/DocumentationInicialReviewComponent";
 import ManageProffesorsComponent from "../admin/ManageProffesorsComponent";
+import EnlacesComponent from "../student/EnlacesComponent.jsx";
 // import NavBar from "./NavBar";
 
 const BaseIndex = () => {
@@ -19,6 +20,7 @@ const BaseIndex = () => {
         <Route path="index/progress" element={<StudentMain />} />
         <Route path="index/proffesors" element={<ProffesorsList />} />
         <Route exact path="index/faqs" element={<FaqMain />} />
+        <Route exact path="index/enlaces" element={<EnlacesComponent />} />
         <Route exact path="index/admin/validation" element={<ValidationRequestsComponent />} />
         <Route exact path="index/admin/documentationI" element={<DocumentationInicialReviewComponent />} />
         {/* <Route exact path="index/admin/documentationF" element={<DocumentationReviewComponent />} /> */}
