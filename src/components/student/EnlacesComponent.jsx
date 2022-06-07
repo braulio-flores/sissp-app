@@ -70,7 +70,11 @@ const EnlacesComponent = () => {
                 <br />
                 <br />
                 Puedes visitar el sitio consultando el siguiente enlace{" "}
-                <a href="https://serviciosocial.ipn.mx" target="_blank">
+                <a
+                  href="https://serviciosocial.ipn.mx"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   SISS Oficial
                 </a>
               </div>
@@ -90,6 +94,7 @@ const EnlacesComponent = () => {
                 <a
                   href="https://www.upiicsa.ipn.mx/estudiantes/servicio-social.html"
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   SS UPIICSA Oficial
                 </a>

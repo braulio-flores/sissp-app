@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import TitleWindow from "../ui/TitleWindow";
 import captura from "../../resources/images/tiposServicio.png";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { startRequestValidationClicked } from "../../actions/ui";
 
 const ValidationRequest = () => {
   const [registre, setRegistre] = useState(true);
   const [buttonDisable, setButtonDisabled] = useState(true);
+  const {user} = useSelector(data=>data.ui.session);
 
   const dispatch = useDispatch();
 
@@ -17,7 +18,7 @@ const ValidationRequest = () => {
 
   const handleClickRequestValidation = () =>{
     // console.log('requested');
-    dispatch(startRequestValidationClicked());
+    dispatch(startRequestValidationClicked(user));
     
   }
 

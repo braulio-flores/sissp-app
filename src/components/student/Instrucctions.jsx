@@ -9,8 +9,20 @@ import preregistroImagen from "../../resources/images/preregistroForm.png";
 import validationRequest from "../../resources/images/validationRequest1.png";
 import validationRequestCreated from "../../resources/images/validationRequestCreated.png";
 import { Link } from "react-router-dom";
+import { updateStudentSteep } from "../../helpers/getuUsers";
+import { useDispatch } from "react-redux";
+import { changeMaxStep, changeStep } from "../../actions/ui";
 
 const Instrucctions = () => {
+
+  const dispatch = useDispatch();
+
+  const handleClickPassInstructions = () =>{
+    updateStudentSteep(2);
+    dispatch(changeStep(2));
+    dispatch(changeMaxStep(2));
+  }
+
   return (
     <>
       <TitleWindow
@@ -573,6 +585,7 @@ const Instrucctions = () => {
         <button
           type="button"
           className="btn mt-5 btn-lg btn-block btn-outline-success"
+          onClick={handleClickPassInstructions}
         >
           Completar Instrucciones Iniciales y Realizar Evaluacion de
           Requerimientos

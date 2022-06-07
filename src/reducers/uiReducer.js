@@ -1,29 +1,61 @@
-
 import { types } from "../types/types";
 
+// const user = JSON.parse(localStorage.getItem("user"));
 
+const userCurrent = JSON.parse(localStorage.getItem("user"));
+const validations = JSON.parse(localStorage.getItem("validations"));
+
+const haveValidation = validations.find(
+  (validation) =>
+    validation.boleta === userCurrent.boleta && validation.validated === false
+);
+console.log(haveValidation);
 
 const inicialState = {
-  session: false,
+  session: {
+    start: userCurrent ? true : false,
+    user: userCurrent ? userCurrent : {},
+  },
   admin: false,
-  steep: 7,
-  maxSteep: 4,
+  steep: userCurrent ? userCurrent.steep : 1,
+  maxSteep: userCurrent ? userCurrent.steep : 1,
   validationPage: {
-    statusRequested: false,
+    statusRequested: !!haveValidation,
   },
   modalOpen: false,
   activeStudent: {},
   activeProfessor: {},
   typeOfModal: 1,
-  admionMode: true,
+  admionMode: localStorage.getItem("user") ? true : false,
 };
 
 export const uiReducer = (state = inicialState, action) => {
   switch (action.type) {
+    case types.uiActiveSession:
+      return {
+        ...state,
+        session: {
+          start: true,
+          user: action.payload,
+        },
+      };
+    case types.uiCloseSession:
+      return {
+        ...state,
+        session: {
+          start: false,
+          user: {},
+        },
+      };
     case types.uiChangeStep:
       return {
         ...state,
         steep: action.payload,
+      };
+    case types.uiChangeMaxStep:
+      return {
+        ...state,
+        maxSteep: action.payload,
       };
     case types.uiRequestValidation:
       return {

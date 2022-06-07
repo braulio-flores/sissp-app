@@ -1,6 +1,10 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import TitleWindow from "../ui/TitleWindow";
 import "./FormInicialRequest.css";
+import Swal from "sweetalert2";
+import { updateStudentSteep } from "../../helpers/getuUsers";
+import { changeMaxStep, changeStep } from "../../actions/ui";
 
 const FormInicialRequest = () => {
   const [formSituation, setFormSituation] = useState({
@@ -20,6 +24,16 @@ const FormInicialRequest = () => {
     schoolarSituation,
     placeSituation,
   } = formSituation;
+
+  let valores = Object.values(formSituation);
+  let isCorrect = false;
+  for (let i = 0; i < valores.length; i++) {
+    if (valores[i] === false) {
+      isCorrect = true;
+    }
+  }
+
+  const dispatch = useDispatch();
 
   const handleInputChangeSituation = (value) => {
     setFormSituation({
@@ -63,6 +77,27 @@ const FormInicialRequest = () => {
     });
   };
 
+  const handleClickSendForm = (e) => {
+    e.preventDefault();
+    console.log(e);
+    Swal.fire({
+      title: "Requisitos Completos",
+      text:
+        "Ya cuentas con todos los requisitos necesarios para realizar tu tramite de SS. Ahora registrate en el sistema y solicita tu validacón en la siguiente ventana.",
+      icon: "success",
+      confirmButtonText: "ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        updateStudentSteep(3);
+        dispatch(changeStep(3));
+        dispatch(changeMaxStep(3));
+      }
+    });
+    // updateStudentSteep(3);
+    // dispatch(changeStep(3));
+    // dispatch(changeMaxStep(3));
+  };
+
   return (
     <>
       <TitleWindow
@@ -72,7 +107,7 @@ const FormInicialRequest = () => {
           tu tramite y gestion del servicio social y asi agilizar este mismo."
       />
       <div className="container mt-0">
-        <form>
+        <form onSubmit={handleClickSendForm}>
           {/* INPUT TIPO CHECK PARA VER QUE TIPO DE ALUMNO ERES */}
           <label
             htmlFor="staticEmail"
@@ -88,6 +123,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeSituation(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Inscrito
@@ -95,6 +131,7 @@ const FormInicialRequest = () => {
             </div>
             <div className="form-check form-check-inline">
               <input
+                required
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeSituation(true)}
@@ -112,6 +149,7 @@ const FormInicialRequest = () => {
                 name="inlineCheckbox1"
                 value="option2"
                 onChange={() => handleInputChangeSituation(false)}
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 Otra
@@ -144,6 +182,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeConstance(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Si
@@ -156,6 +195,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeConstance(false)}
                 name="inlineCheckbox1"
                 value="option2"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 No
@@ -196,6 +236,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeNSS(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Si
@@ -208,6 +249,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeNSS(false)}
                 name="inlineCheckbox1"
                 value="option2"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 No
@@ -249,6 +291,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeCURP(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Si
@@ -261,6 +304,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeCURP(false)}
                 name="inlineCheckbox1"
                 value="option2"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 No
@@ -302,6 +346,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeMail(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Si
@@ -314,6 +359,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangeMail(false)}
                 name="inlineCheckbox1"
                 value="option2"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 No
@@ -394,6 +440,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangePlace(true)}
                 name="inlineCheckbox1"
                 value="option1"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox1">
                 Si
@@ -406,6 +453,7 @@ const FormInicialRequest = () => {
                 onChange={() => handleInputChangePlace(false)}
                 name="inlineCheckbox1"
                 value="option2"
+                required
               />
               <label className="form-check-label" htmlFor="inlineCheckbox2">
                 No
@@ -421,8 +469,11 @@ const FormInicialRequest = () => {
             )}
           </div>
           <button
-            type="button"
-            className="btn btn-outline-primary mt-5 btn-lg btn-block"
+            type="submit"
+            className={`btn mt-5 btn-lg btn-block ${
+              !isCorrect ? "btn-outline-primary" : "btn-outline-secondary"
+            }`}
+            disabled={isCorrect}
           >
             Verificar
           </button>

@@ -1,12 +1,18 @@
 import React from "react";
-import { validationRequestMock } from "../../resources/mocks/validationRequestMocks";
+// import { validationRequestMock } from "../../resources/mocks/validationRequestMocks";
 import ModalValidate from "./ModalValidate";
 import ValidationRequestItem from "./ValidationRequestItem";
 
-const ValidationRequestContainer = () => {
+const ValidationRequestContainer =  () => {
 
+  //  getValidations();
+
+  const validationRequestMock = JSON.parse(localStorage.getItem('validations'));
 
   const variableNoValidated = validationRequestMock.filter(item1=>item1.validated === false);
+
+
+  const users = JSON.parse(localStorage.getItem('allUsers'));
 
 
   return (
@@ -22,9 +28,15 @@ const ValidationRequestContainer = () => {
         </thead>
         <tbody>
           {
-              variableNoValidated.map((item, i)=>{
 
-                  return <ValidationRequestItem key={item.boleta} item={item}/>
+
+              variableNoValidated.map((item, i)=>{
+                  const complement = users.find(element=>element.boleta === item.boleta);
+                  const item2 = {
+                    ...item,
+                    ...complement
+                  }
+                  return <ValidationRequestItem key={item.boleta} item={item2}/>
 
                 
               })

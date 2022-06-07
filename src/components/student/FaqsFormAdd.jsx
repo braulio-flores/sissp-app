@@ -1,6 +1,10 @@
 import React from "react";
 
 const FaqsFormAdd = () => {
+  
+  // HACE FALTA SECCION DE CONTESTAR PREGUNTAS
+
+
   return (
     <form>
       <div className="mb-3 mt-5">
@@ -9,6 +13,7 @@ const FaqsFormAdd = () => {
           responderemos.
         </label>
         <textarea
+          name="question"
           placeholder="Escribe aqui tu pregunta"
           className="form-control"
           id="exampleFormControlTextarea1"

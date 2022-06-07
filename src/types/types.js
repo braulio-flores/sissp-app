@@ -8,6 +8,7 @@ export const types = {
 
 
     uiChangeStep: '[ui] Change Current Step',   
+    uiChangeMaxStep: '[ui] Change Max Step',   
 
     uiRequestValidation: '[ui] Requested Validation',    
 
@@ -20,4 +21,7 @@ export const types = {
     uiSetTypeOfModal: '[ui] Set Type Of Modal',   
 
     uiAdminMode: '[ui] Set Admin Mode',   
+    uiRemoveAdminMode: '[ui] Remove Admin Mode',   
+    uiActiveSession: '[ui] Start Session',   
+    uiCloseSession: '[ui] Close Session',   
 }

@@ -1,8 +1,10 @@
-import React from 'react'
-import TitleWindow from '../ui/TitleWindow'
-import FaqsContainer from './FaqsContainer'
+import React from "react";
+import TitleWindow from "../ui/TitleWindow";
+import FaqsContainer from "./FaqsContainer";
 
 const FaqMain = () => {
+
+
   return (
     <>
       <TitleWindow
@@ -12,7 +14,7 @@ const FaqMain = () => {
       />
       <FaqsContainer />
     </>
-  )
-}
+  );
+};
 
-export default FaqMain
+export default FaqMain;

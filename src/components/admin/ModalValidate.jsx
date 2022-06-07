@@ -83,12 +83,18 @@ const ModalValidate = () => {
     }
   };
 
+  const handleSubmitModal = (e) =>{
+    e.preventDefault();
+    reset();
+    console.log('mandando el primer form');
+  }
+
   const contentEditProfessor = () => {
     return (
       <>
         <h1> {ap.name ? "Editar Profesor" : "Agregar Profesor"}</h1>
         <hr />
-        <form>
+        <form onSubmit={handleSubmitModal}>
           <div className="form-group">
             <label>Nombre del docente</label>
             <input
