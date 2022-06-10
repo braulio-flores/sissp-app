@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startRequestDocumentationClicked } from "../../actions/docs";
+import { requestDocClicked, startRequestDocumentationClicked } from "../../actions/docs";
+import { updateDocumentation } from "../../helpers/getDocuments";
 import TitleWindow from "../ui/TitleWindow";
+import Swal from "sweetalert2";
 
 const InicialDocumentationComponent = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,24 @@ const InicialDocumentationComponent = () => {
   };
 
   const handleSendDocumentationAgain = () => {
-    console.log("aqui se envia la doc");
+    updateDocumentation(user.boleta, {
+      ...myDocument,
+      retry: false,
+    });
+    // VAMOS A CREAR UN ALERT QUE DIGA QUE YA SE MANDO Y ADEMAS ACTUALIZAR EL MYVALIDATE
+    dispatch(
+      requestDocClicked({
+        ...myDocument,
+        retry: false,
+      })
+    );
+
+    Swal.fire({
+      title: "Documentación Enviada Nuevamente",
+      text: "Se ha mandado tu documentación nuevamente",
+      icon: "success",
+      confirmButtonText: "ok",
+    });
   };
 
   return (
@@ -44,6 +63,23 @@ const InicialDocumentationComponent = () => {
           title="Documentación Inicial"
           descriptionPage="Ya has enviado tu documentacion, en breve se revisara y se te notificara automaticamente cuando todo haya sido revisado y este correctamente. No tardamos, gracias."
         />
+      )}
+
+      {// SI TENGO ESTATUS DE ENVIADO Y ADEMAS TENGO UN RETRY
+      myDocument && myDocument.retry === true &&  (
+        <>
+          <div
+            className="container text-center pt-5 mt-0"
+            style={{ fontSize: "200px" }}
+          >
+            <h3 className="mb-0">Documentación Rechazada</h3>
+            <i className="bi bi-x-circle"></i>
+            <h5 className="mb-0 text-info">{myDocument.comment}</h5>
+            <h4 className="mb-0">
+              Revisa tus documentos e intentalo de nuevo a la brevedad
+            </h4>
+          </div>
+        </>
       )}
 
       {/* ESTO SE MOSTRARA EN AMBOS CASOS, ENVIADO, O ENVIADO CON ERROR */}

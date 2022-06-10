@@ -13,8 +13,7 @@ const haveDocument =
   userCurrent && documents
     ? documents.find(
         (document) =>
-          document.boleta === userCurrent.boleta &&
-          document.inicialOrFinal === true
+          document.boleta === userCurrent.boleta 
       )
     : false;
 
@@ -27,6 +26,9 @@ const haveDocument =
 const inicialState = {
   myDocument: haveDocument,
   documents: documents,
+  // myFinalDocument: haveFinalDocument,
+  // finalDocuments: finalDocus,
+  myFinalDocument: false,
 };
 
 export const docsReducer = (state = inicialState, action) => {

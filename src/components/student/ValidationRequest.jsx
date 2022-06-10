@@ -72,7 +72,7 @@ const ValidationRequest = () => {
             style={{ fontSize: "200px" }}
           >
             <h3 className="mb-0">Validacion Rechazada</h3>
-            <i class="bi bi-x-circle"></i>
+            <i className="bi bi-x-circle"></i>
             <h5 className="mb-0 text-info">{myValidation.comment}</h5>
             <h4 className="mb-0">
               Revisa tus datos e intentalo de nuevo a la brevedad
