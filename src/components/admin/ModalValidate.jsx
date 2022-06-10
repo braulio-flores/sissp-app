@@ -5,8 +5,14 @@ import {
   closeModalAction,
   deleteActiveProfessor,
   deleteActiveStudent,
+  setValidations,
 } from "../../actions/ui";
+import { updateStudentSteepWID } from "../../helpers/getuUsers";
+import { getValidations, updateValidation } from "../../helpers/getValidations";
 import { useForm } from "../../hooks/useForm";
+import Swal from "sweetalert2";
+import { getDocuments, updateDocumentation } from "../../helpers/getDocuments";
+import { setDocuments } from "../../actions/docs";
 
 const customStyles = {
   content: {
@@ -19,12 +25,9 @@ const customStyles = {
   },
 };
 
-
 Modal.setAppElement("#root");
 
 const ModalValidate = () => {
-
-
   const dispatch = useDispatch();
   const {
     modalOpen,
@@ -33,8 +36,6 @@ const ModalValidate = () => {
     activeProfessor: ap,
   } = useSelector((data) => data.ui);
 
-
-
   const { valuesForm, handleInputChange, reset, updateValues } = useForm({
     inputName: "",
     inputAcademy: "",
@@ -42,6 +43,8 @@ const ModalValidate = () => {
     inputNumber: "",
     inputVacants: "",
   });
+
+  const allUsers = JSON.parse(localStorage.getItem("allUsers"));
 
   const {
     inputName,
@@ -83,11 +86,120 @@ const ModalValidate = () => {
     }
   };
 
-  const handleSubmitModal = (e) =>{
+  const handleSubmitModal = (e) => {
     e.preventDefault();
     reset();
-    console.log('mandando el primer form');
-  }
+    console.log("mandando el primer form");
+  };
+
+  // METODOS PARA VALIDAR
+  const handleConfirmValidation = (a) => {
+    const activeU = allUsers.find((data) => data.boleta === a.boleta);
+
+    updateStudentSteepWID(4, a.boleta, activeU);
+    updateValidation(a.boleta, {
+      boleta: a.boleta,
+      responsible: a.responsible,
+      validated: true,
+      comment: notesInput,
+      retry: false,
+    });
+
+    Swal.fire({
+      title: "Alumno Validado",
+      text: `Se ha validado exitosamente al alumno con boleta ${a.boleta}`,
+      icon: "success",
+      confirmButtonText: "ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(closeModalAction());
+      }
+    });
+
+    getValidations();
+    dispatch(setValidations(JSON.parse(localStorage.getItem("validations"))));
+  };
+
+  const handleNoValidation = (a) => {
+    updateValidation(a.boleta, {
+      boleta: a.boleta,
+      responsible: a.responsible,
+      validated: false,
+      comment: notesInput,
+      retry: true,
+    });
+
+    Swal.fire({
+      title: "Alumno No Validado",
+      text: `Se ha denegado la validacion al alumno con boleta ${a.boleta}. Se le notificara para que mande de nuevo su validación cuando sea correcta su información`,
+      icon: "error",
+      confirmButtonText: "ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(closeModalAction());
+      }
+    });
+    getValidations();
+    dispatch(setValidations(JSON.parse(localStorage.getItem("validations"))));
+  };
+  // METODOS PARA VALIDAR DOC
+  const handleConfirmDoc = (a) => {
+    const activeU = allUsers.find((data) => data.boleta === a.boleta);
+
+    updateStudentSteepWID(5, a.boleta, activeU);
+    updateDocumentation(a.boleta, {
+      boleta: a.boleta,
+      doc: a.doc,
+      validated: true,
+      comment: notesInput,
+      retry: false,
+      inicialOrFinal: true,
+    });
+
+    Swal.fire({
+      title: "Documento Validado",
+      text: `Se ha validado exitosamente el documento del alumno con boleta ${a.boleta}`,
+      icon: "success",
+      confirmButtonText: "ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(setDocuments(JSON.parse(localStorage.getItem("documents"))));
+        dispatch(closeModalAction());
+      }
+    });
+  };
+
+  const handleRegetDoc = (a) => {
+    updateValidation(a.boleta, {
+      boleta: a.boleta,
+      responsible: a.responsible,
+      validated: false,
+      comment: notesInput,
+      retry: true,
+    });
+
+    Swal.fire({
+      title: "Alumno No Validado",
+      text: `Se ha denegado la validacion al alumno con boleta ${a.boleta}. Se le notificara para que mande de nuevo su validación cuando sea correcta su información`,
+      icon: "error",
+      confirmButtonText: "ok",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(closeModalAction());
+      }
+    });
+    getValidations();
+    dispatch(setValidations(JSON.parse(localStorage.getItem("validations"))));
+  };
+
+  const {
+    valuesForm: valuesForm2,
+    handleInputChange: handleInputChange2,
+  } = useForm({
+    notesInput: "",
+  });
+
+  const { notesInput } = valuesForm2;
 
   const contentEditProfessor = () => {
     return (
@@ -222,21 +334,32 @@ const ModalValidate = () => {
               className="form-control"
               placeholder="Notas"
               rows="5"
-              name="notes"
+              name="notesInput"
+              id="notesTa"
+              value={notesInput}
+              onChange={handleInputChange2}
             ></textarea>
             <small id="emailHelp" className="form-text text-muted">
               Comentario para la validación en caso de que se requiera
             </small>
           </div>
           <br />
-          <button type="button" className="btn btn-outline-success btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-success btn-block"
+            onClick={() => handleConfirmValidation(a)}
+          >
             <i className="far fa-save"></i>
             <span>
               {" "}
               Validar <i className="bi bi-check-circle-fill"></i>
             </span>
           </button>{" "}
-          <button type="button" className="btn btn-outline-danger btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-block"
+            onClick={() => handleNoValidation(a)}
+          >
             <i className="far fa-save"></i>
             <span>
               {" "}
@@ -301,14 +424,22 @@ const ModalValidate = () => {
             </small>
           </div>
           <br />
-          <button type="button" className="btn btn-outline-success btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-success btn-block"
+            onClick={() => handleConfirmDoc(a)}
+          >
             <i className="far fa-save"></i>
             <span>
               {" "}
               Revisión Completa <i className="bi bi-check-circle-fill"></i>
             </span>
           </button>{" "}
-          <button type="button" className="btn btn-outline-danger btn-block">
+          <button
+            type="button"
+            className="btn btn-outline-danger btn-block"
+            onClick={() => handleRegetDoc(a)}
+          >
             <i className="far fa-save"></i>
             <span>
               {" "}

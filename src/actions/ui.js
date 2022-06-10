@@ -2,9 +2,10 @@ import { types } from "../types/types";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { variables } from "../variables/variables";
+import { requestDocClicked } from "./docs";
 
 export const closeSession = () => {
-  localStorage.removeItem("admin");
+  localStorage.setItem("admin", false);
   localStorage.removeItem("user");
   localStorage.clear();
   return {
@@ -63,6 +64,7 @@ export const reviewPass = ({ student }, pass) => {
       Swal.close();
       dispatch(setAdminMode(true));
       dispatch(setActiveSession(student));
+      localStorage.setItem("admin", "true");
     } else if (student.password === pass) {
       // AQUI SOLO SE VA A DISPARAR EL INICIO DE SESION
       Swal.close();
@@ -80,7 +82,6 @@ export const reviewPass = ({ student }, pass) => {
 };
 
 export const setAdminMode = (modeAd) => {
-  localStorage.setItem("admin", "true");
   return {
     type: types.uiAdminMode,
     payload: modeAd,
@@ -90,7 +91,41 @@ export const setAdminMode = (modeAd) => {
 export const setActiveSession = (user) => {
   localStorage.setItem("user", JSON.stringify(user));
 
+  const userCurrent = JSON.parse(localStorage.getItem("user"))
+    ? JSON.parse(localStorage.getItem("user"))
+    : false;
+  const validations = JSON.parse(localStorage.getItem("validations"))
+    ? JSON.parse(localStorage.getItem("validations"))
+    : false;
+  const documents = JSON.parse(localStorage.getItem("documents"))
+    ? JSON.parse(localStorage.getItem("documents"))
+    : false;
+
   return async (dispatch) => {
+    // ESTE RETURN VA A TRAERME A TODOS LOS USUARIOS Y ME LOS VA A GUARDAR EN EL LOCAL Storage, PERO ANTES DE TODO
+    // LO QUE QUIERO HACER ES GUARDAR MY VALIDATION EN MI REDUX CADA QUE SE ABRE Y CIERRA sessionStorage, LO HACE CADA QUE
+    // SE CARGA LA PAGINA PERO NO CADA QUE SE ABRE Y CIERRA SESION
+    // console.log("userCurrent", userCurrent);
+    // console.log("validations", validations);
+    dispatch(
+      requestValidationClicked(
+        !!userCurrent && !!validations
+          ? validations.find(
+              (validation) => validation.boleta === userCurrent.boleta
+            )
+          : false
+      )
+    );
+    dispatch(
+      requestDocClicked(
+        !!userCurrent && !!documents
+          ? documents.find(
+              (document) => document.boleta === userCurrent.boleta && document.inicialOrFinal === true
+            )
+          : false
+      )
+    );
+
     Swal.fire({
       title: "Recuperando Data",
       text: "Estamos validando tu solicitud, por favor espera.",
@@ -103,7 +138,6 @@ export const setActiveSession = (user) => {
       },
     });
 
-
     await axios
       .get(`${variables.REACT_APP_URL_API}users/`)
       .then((res) => {
@@ -112,9 +146,9 @@ export const setActiveSession = (user) => {
         return user;
         // SI SI ESTA EN LA BASE DE DATOS VAMOS A MANDARLO AL ACTION DE REVISAR PASS
       })
-      .then(res=>{
-        localStorage.setItem('allUsers',JSON.stringify(res.student));
-        dispatch(setUsers(user))
+      .then((res) => {
+        localStorage.setItem("allUsers", JSON.stringify(res.student));
+        dispatch(setUsers(user));
       })
       .catch((error) => {
         console.log();
@@ -137,12 +171,19 @@ export const setActiveSession = (user) => {
   // };
 };
 
-const setUsers = (user) =>{
+export const setUsers = (user) => {
   return {
-      type: types.uiActiveSession,
-      payload: user,
-    };
-}
+    type: types.uiActiveSession,
+    payload: user,
+  };
+};
+
+export const setValidations = (validations) => {
+  return {
+    type: types.uiUpdateValidations,
+    payload: validations,
+  };
+};
 
 export const setActiveProfessor = (professor) => {
   return {
@@ -215,8 +256,6 @@ export const changeMaxStep = (step) => {
   };
 };
 
-
-
 export const startRequestValidationClicked = (user) => {
   // AQUI SE TIENE QUE HACER EL ENVIO DE LA SOLICITUD A LA DB
   return async (dispatch) => {
@@ -227,9 +266,9 @@ export const startRequestValidationClicked = (user) => {
       showConfirmButton: false,
       allowOutsideClick: false,
 
-      onBeforeOpen: () => {
-        Swal.showLoading();
-      },
+      // onBeforeOpen: () => {
+      //   Swal.showLoading();
+      // },
     });
 
     const validationInfo = {
@@ -241,12 +280,13 @@ export const startRequestValidationClicked = (user) => {
     await axios
       .post(`${variables.REACT_APP_URL_API}validations/`, { ...validationInfo })
       .then((res) => {
-        Swal.close();
+        console.log(res.data.eventDB);
+        // Swal.close();
+        dispatch(requestValidationClicked(res.data.eventDB));
 
         Swal.fire({
           title: "Validacion Solicitada",
-          text:
-            "Se ha mandado tu solicitud de validacion exitosamente",
+          text: "Se ha mandado tu solicitud de validacion exitosamente",
           icon: "success",
           confirmButtonText: "ok",
         });
@@ -256,14 +296,11 @@ export const startRequestValidationClicked = (user) => {
 
         Swal.fire({
           title: "Validacion Fallida",
-          text:
-            error,
+          text: error,
           icon: "error",
           confirmButtonText: "ok",
         });
       });
-
-    dispatch(requestValidationClicked());
   };
 
   // ESTE SOLO ESTA SIMULANDO LO QUE ES UNA PETICION ASINCRONA
@@ -271,10 +308,11 @@ export const startRequestValidationClicked = (user) => {
   // DESPUES SE DEBE DE HACER UN DISPATCH PARA CAMBIAR EL ESTADO EN REDUX
 };
 
-export const requestValidationClicked = () => {
+export const requestValidationClicked = (myValidation) => {
   // AQUI SE TIENE QUE HACER UN START REQUESTVALIDATION QUE LO QUE HARA SERA EL ENVIO DE LA SOLICITUD A LA DB
 
   return {
     type: types.uiRequestValidation,
+    payload: myValidation,
   };
 };

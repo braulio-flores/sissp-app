@@ -10,18 +10,19 @@ import validationRequest from "../../resources/images/validationRequest1.png";
 import validationRequestCreated from "../../resources/images/validationRequestCreated.png";
 import { Link } from "react-router-dom";
 import { updateStudentSteep } from "../../helpers/getuUsers";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeMaxStep, changeStep } from "../../actions/ui";
 
 const Instrucctions = () => {
+  const { user } = useSelector((data) => data.ui.session);
 
   const dispatch = useDispatch();
 
-  const handleClickPassInstructions = () =>{
+  const handleClickPassInstructions = () => {
     updateStudentSteep(2);
     dispatch(changeStep(2));
     dispatch(changeMaxStep(2));
-  }
+  };
 
   return (
     <>
@@ -584,8 +585,11 @@ const Instrucctions = () => {
         </div>
         <button
           type="button"
-          className="btn mt-5 btn-lg btn-block btn-outline-success"
+          className={`btn mt-5 btn-lg btn-block ${
+            user.steep > 1 ? "btn-outline-secondary" : "btn-outline-primary"
+          }`}
           onClick={handleClickPassInstructions}
+          disabled={user.steep > 1}
         >
           Completar Instrucciones Iniciales y Realizar Evaluacion de
           Requerimientos

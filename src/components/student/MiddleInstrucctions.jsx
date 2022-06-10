@@ -1,7 +1,22 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeMaxStep, changeStep } from "../../actions/ui";
+import { updateStudentSteep } from "../../helpers/getuUsers";
 import TitleWindow from "../ui/TitleWindow";
 
 const MiddleInstrucctions = () => {
+
+  const dispatch = useDispatch();
+  const {steep} = useSelector(data=>data.ui.session.user);
+
+
+  const hanldeCompleteMiddleInstructions = () =>{
+    updateStudentSteep(6);
+    dispatch(changeStep(6));
+    dispatch(changeMaxStep(6));
+  }
+
+
   return (
     <>
       <TitleWindow
@@ -162,7 +177,9 @@ const MiddleInstrucctions = () => {
         </div>
         <button
           type="button"
-          className="btn mt-5 btn-lg btn-block btn-outline-success"
+          className={`btn mt-5 btn-lg btn-block ${parseInt(steep) >= 6 ? "btn-outline-secondary": "btn-outline-success"}`}
+          onClick={hanldeCompleteMiddleInstructions}
+          disabled={parseInt(steep) >= 6}
         >
           Completar Instrucciones Iniciales y Realizar Evaluacion de
           Requerimientos

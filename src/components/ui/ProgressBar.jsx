@@ -7,6 +7,7 @@ import ProgressBarItem from "./ProgressBarItem";
 const ProgressBar = () => {
   
   const { maxSteep } = useSelector(data=>data.ui);
+  console.log(maxSteep);
 
   return (
     <div className="container mt-5 mb-5">

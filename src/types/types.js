@@ -24,4 +24,13 @@ export const types = {
     uiRemoveAdminMode: '[ui] Remove Admin Mode',   
     uiActiveSession: '[ui] Start Session',   
     uiCloseSession: '[ui] Close Session',   
+
+
+    uiUpdateValidations: '[ui] Update Validations',   
+
+
+
+    docsRequestSendDocs: '[docs] Send Request Docs',   
+    docsSetsDocs: '[docs] Set Docs',   
+
 }

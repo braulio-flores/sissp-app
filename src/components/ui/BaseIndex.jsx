@@ -11,12 +11,16 @@ import ManageProffesorsComponent from "../admin/ManageProffesorsComponent";
 import EnlacesComponent from "../student/EnlacesComponent.jsx";
 import { useSelector } from "react-redux";
 import { getValidations } from "../../helpers/getValidations";
+import { getQuestions } from "../../helpers/getQuestions";
+import { getDocuments } from "../../helpers/getDocuments";
 // import NavBar from "./NavBar";
 
 const BaseIndex = () => {
 
   const {session} = useSelector(data=>data.ui);
   getValidations();
+  getQuestions();
+  getDocuments();
 
   return (
     session.start ?

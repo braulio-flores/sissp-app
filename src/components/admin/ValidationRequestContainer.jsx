@@ -9,8 +9,7 @@ const ValidationRequestContainer =  () => {
 
   const validationRequestMock = JSON.parse(localStorage.getItem('validations'));
 
-  const variableNoValidated = validationRequestMock.filter(item1=>item1.validated === false);
-
+  const variableNoValidated = validationRequestMock.filter((item1=>item1.validated === false && !item1.retry) || (item1=>item1.validated === false && item1.retry === false));
 
   const users = JSON.parse(localStorage.getItem('allUsers'));
 
@@ -27,8 +26,14 @@ const ValidationRequestContainer =  () => {
           </tr>
         </thead>
         <tbody>
-          {
 
+          {
+              variableNoValidated.length === 0 && <tr>
+                <td colSpan={4} className="text-center">No tienes registros pendientes para validad</td>
+              </tr>
+
+          }
+          {
 
               variableNoValidated.map((item, i)=>{
                   const complement = users.find(element=>element.boleta === item.boleta);

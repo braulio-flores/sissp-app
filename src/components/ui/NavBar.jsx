@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { closeSession, setAdminMode } from "../../actions/ui";
+import { requestDocClicked } from "../../actions/docs";
+import { closeSession, requestValidationClicked, setAdminMode } from "../../actions/ui";
 
 const NavBar = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,8 @@ const NavBar = () => {
   const handleCloseSession = () => {
     dispatch(closeSession());
     dispatch(setAdminMode(false));
+    dispatch(requestValidationClicked(false));
+    dispatch(requestDocClicked(false));
   };
 
   const navAdmin = () => {

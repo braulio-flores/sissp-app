@@ -1,8 +1,10 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { uiReducer } from "../reducers/uiReducer";
+import { docsReducer } from "../reducers/docsReducer";
 
 const reducers = combineReducers({
+  docs: docsReducer,
   ui: uiReducer,
 });
 

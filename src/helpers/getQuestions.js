@@ -3,24 +3,24 @@ import axios from "axios";
 import { variables } from "../variables/variables";
 
 export const getQuestions = async () => {
-  Swal.fire({
-    title: "Conectando",
-    text: "Cargando preguntas.",
-    allowEscapeKey: false,
-    showConfirmButton: false,
-    allowOutsideClick: false,
+  // Swal.fire({
+  //   title: "Conectando",
+  //   text: "Cargando preguntas.",
+  //   allowEscapeKey: false,
+  //   showConfirmButton: false,
+  //   allowOutsideClick: false,
 
-    onBeforeOpen: () => {
-      Swal.showLoading();
-    },
-  });
+  //   onBeforeOpen: () => {
+  //     Swal.showLoading();
+  //   },
+  // });
 
   await axios
     .get(`${variables.REACT_APP_URL_API}questions/`)
     .then((res) => {
       const questions = res.data;
       // SI SI ESTA EN LA BASE DE DATOS VAMOS A MANDARLO AL ACTION DE REVISAR PASS
-      Swal.close();
+      // Swal.close();
     //   console.log(questions);
       return questions;
     })

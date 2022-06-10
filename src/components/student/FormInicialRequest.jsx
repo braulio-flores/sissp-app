@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TitleWindow from "../ui/TitleWindow";
 import "./FormInicialRequest.css";
 import Swal from "sweetalert2";
@@ -15,6 +15,8 @@ const FormInicialRequest = () => {
     mailSituation: true,
     placeSituation: true,
   });
+
+  const {user} = useSelector(data=>data.ui.session);
 
   const {
     mailSituation,
@@ -471,9 +473,9 @@ const FormInicialRequest = () => {
           <button
             type="submit"
             className={`btn mt-5 btn-lg btn-block ${
-              !isCorrect ? "btn-outline-primary" : "btn-outline-secondary"
+              !user.steep > 2 && !isCorrect ? "btn-outline-primary" : "btn-outline-secondary"
             }`}
-            disabled={isCorrect}
+            disabled={isCorrect || user.steep > 2}
           >
             Verificar
           </button>

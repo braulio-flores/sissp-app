@@ -2,14 +2,25 @@ import { types } from "../types/types";
 
 // const user = JSON.parse(localStorage.getItem("user"));
 
-const userCurrent = JSON.parse(localStorage.getItem("user"));
-const validations = JSON.parse(localStorage.getItem("validations"));
+const userCurrent = JSON.parse(localStorage.getItem("user"))
+  ? JSON.parse(localStorage.getItem("user"))
+  : false;
+const validations = JSON.parse(localStorage.getItem("validations"))
+  ? JSON.parse(localStorage.getItem("validations"))
+  : false;
 
-const haveValidation = validations.find(
-  (validation) =>
-    validation.boleta === userCurrent.boleta && validation.validated === false
-);
-console.log(haveValidation);
+const haveValidation =
+  !!userCurrent && !!validations
+    ? validations.find(
+        (validation) => validation.boleta === userCurrent.boleta
+      )
+    : false;
+
+// SI ES UNDEFINED PUEDE SIGBIFICAR QUE YA ESTA VALIDADO
+
+const haveValidationF = haveValidation
+  ? validations.find((validation) => validation.boleta === userCurrent.boleta)
+  : false;
 
 const inicialState = {
   session: {
@@ -18,15 +29,17 @@ const inicialState = {
   },
   admin: false,
   steep: userCurrent ? userCurrent.steep : 1,
-  maxSteep: userCurrent ? userCurrent.steep : 1,
   validationPage: {
-    statusRequested: !!haveValidation,
+    statusRequested: !!haveValidationF,
   },
+  maxSteep: userCurrent ? userCurrent.steep : 1,
   modalOpen: false,
   activeStudent: {},
   activeProfessor: {},
   typeOfModal: 1,
-  admionMode: localStorage.getItem("user") ? true : false,
+  admionMode: JSON.parse(localStorage.getItem("admin")) ? true : false,
+  myValidation: haveValidationF,
+  validations: validations ? validations : {},
 };
 
 export const uiReducer = (state = inicialState, action) => {
@@ -38,6 +51,8 @@ export const uiReducer = (state = inicialState, action) => {
           start: true,
           user: action.payload,
         },
+        steep: action.payload.steep,
+        maxSteep: action.payload.steep,
       };
     case types.uiCloseSession:
       return {
@@ -63,6 +78,7 @@ export const uiReducer = (state = inicialState, action) => {
         validationPage: {
           statusRequested: true,
         },
+        myValidation: action.payload,
       };
     case types.uiCloseModal:
       return {
@@ -103,6 +119,11 @@ export const uiReducer = (state = inicialState, action) => {
       return {
         ...state,
         admionMode: action.payload,
+      };
+    case types.uiUpdateValidations:
+      return {
+        ...state,
+        validations: action.payload,
       };
     default:
       return state;
