@@ -40,6 +40,7 @@ const inicialState = {
   admionMode: JSON.parse(localStorage.getItem("admin")) ? true : false,
   myValidation: haveValidationF,
   validations: validations ? validations : {},
+  docOpen: {}
 };
 
 export const uiReducer = (state = inicialState, action) => {
@@ -84,11 +85,13 @@ export const uiReducer = (state = inicialState, action) => {
       return {
         ...state,
         modalOpen: false,
+        docOpen: {}
       };
     case types.uiOpenModal:
       return {
         ...state,
         modalOpen: true,
+        docOpen: action.payload
       };
     case types.uiSetActiveStudent:
       return {

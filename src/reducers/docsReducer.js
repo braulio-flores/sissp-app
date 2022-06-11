@@ -9,6 +9,8 @@ const documents = JSON.parse(localStorage.getItem("documents"))
   ? JSON.parse(localStorage.getItem("documents"))
   : false;
 
+  console.log(userCurrent);
+
 const haveDocument =
   userCurrent && documents
     ? documents.find(

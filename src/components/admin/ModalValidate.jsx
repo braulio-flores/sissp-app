@@ -11,7 +11,7 @@ import { updateStudentSteepWID } from "../../helpers/getuUsers";
 import { getValidations, updateValidation } from "../../helpers/getValidations";
 import { useForm } from "../../hooks/useForm";
 import Swal from "sweetalert2";
-import { getDocuments, updateDocumentation } from "../../helpers/getDocuments";
+import { updateDocumentation } from "../../helpers/getDocuments";
 import { setDocuments } from "../../actions/docs";
 
 const customStyles = {
@@ -28,6 +28,7 @@ const customStyles = {
 Modal.setAppElement("#root");
 
 const ModalValidate = () => {
+
   const dispatch = useDispatch();
   const {
     modalOpen,
@@ -35,6 +36,8 @@ const ModalValidate = () => {
     typeOfModal,
     activeProfessor: ap,
   } = useSelector((data) => data.ui);
+
+  const { docOpen } = useSelector((data) => data.ui);
 
   const { valuesForm, handleInputChange, reset, updateValues } = useForm({
     inputName: "",
@@ -146,14 +149,22 @@ const ModalValidate = () => {
   const handleConfirmDoc = (a) => {
     const activeU = allUsers.find((data) => data.boleta === a.boleta);
 
-    updateStudentSteepWID(5, a.boleta, activeU);
+    console.log(a);
+    if (a.inicialOrFinal === false) { //ES PORQUE ES DOC FINAL ENTONCES PASA AL PUNTO 7
+      updateStudentSteepWID(7, a.boleta, activeU);
+      
+    }
+    if (a.inicialOrFinal === true) { //ES PORQUE ES DOC FINAL ENTONCES PASA AL PUNTO 7
+      updateStudentSteepWID(5, a.boleta, activeU);
+      
+    }
+
     updateDocumentation(a.boleta, {
       boleta: a.boleta,
       doc: a.doc,
       validated: true,
       comment: notesInput,
       retry: false,
-      inicialOrFinal: true,
     });
 
     Swal.fire({
@@ -170,17 +181,18 @@ const ModalValidate = () => {
   };
 
   const handleRegetDoc = (a) => {
-    updateValidation(a.boleta, {
+    updateDocumentation(a.boleta, {
       boleta: a.boleta,
-      responsible: a.responsible,
+      doc: a.doc,
+      retry: false,
       validated: false,
       comment: notesInput,
       retry: true,
     });
 
     Swal.fire({
-      title: "Alumno No Validado",
-      text: `Se ha denegado la validacion al alumno con boleta ${a.boleta}. Se le notificara para que mande de nuevo su validación cuando sea correcta su información`,
+      title: "Documento No Validado",
+      text: `Se ha denegado la validacion  de documentación inicial al alumno con boleta ${a.boleta}. Se le notificara para que mande de nuevo su validación cuando sea correcta su información`,
       icon: "error",
       confirmButtonText: "ok",
     }).then((result) => {
@@ -424,35 +436,34 @@ const ModalValidate = () => {
             </small>
           </div>
           <br />
-          <button
-            type="button"
-            className="btn btn-outline-success btn-block"
-            onClick={() => handleConfirmDoc(a)}
-          >
-            <i className="far fa-save"></i>
-            <span>
-              {" "}
-              Revisión Completa <i className="bi bi-check-circle-fill"></i>
-            </span>
-          </button>{" "}
-          <button
-            type="button"
-            className="btn btn-outline-danger btn-block"
-            onClick={() => handleRegetDoc(a)}
-          >
-            <i className="far fa-save"></i>
-            <span>
-              {" "}
-              No procede <i className="bi bi-x-lg"></i>
-            </span>
-          </button>{" "}
-          {/* <button type="button" className="btn btn-danger btn-block">
-            <i className="far fa-save"></i>
-            <span>
-              {" "}
-              Eliminar Solicitud <i class="bi bi-x-circle-fill"></i>
-            </span>
-          </button> */}
+          {!docOpen.validated ? (
+            <>
+              <button
+                type="button"
+                className="btn btn-outline-success btn-block"
+                onClick={() => handleConfirmDoc(a)}
+              >
+                <i className="far fa-save"></i>
+                <span>
+                  Revisión Completa <i className="bi bi-check-circle-fill"></i>
+                </span>
+              </button>
+              <button
+                type="button"
+                className="btn btn-outline-danger btn-block"
+                onClick={() => handleRegetDoc(a)}
+              >
+                <i className="far fa-save"></i>
+                <span>
+                  No procede <i className="bi bi-x-lg"></i>
+                </span>
+              </button>
+            </>
+          ) : (
+            <p className="text-warning">
+              Este documento ya ha sido validado, se encuentra archivado en caso de que usted lo necesite.*
+            </p>
+          )}
         </form>
       </>
     );

@@ -1,14 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
-// import { inicialDocumentationRequestMock } from "../../resources/mocks/iDocRequestMocks";
 import DocumentationInicialReviewItem from "./DocumentationInicialReviewItem";
 import ModalValidate from "./ModalValidate";
 
-const DocumentationInicialReviewContainer = () => {
+const DocumentationFinalReviewContainer = () => {
   const { documents } = useSelector((data) => data.docs);
 
   const reviewDocuments = documents
-    ? documents.filter((doc) => doc.inicialOrFinal === true && doc.retry !== true)
+    ? documents.filter(
+        (doc) => doc.inicialOrFinal === false && doc.retry !== true
+      )
     : false;
 
   const allUsers = localStorage.getItem("allUsers")
@@ -17,7 +18,7 @@ const DocumentationInicialReviewContainer = () => {
 
   let user;
 
-  const inicialDocumentationRequestMock =
+  const finalDocumentationRequestMock =
     reviewDocuments && allUsers
       ? reviewDocuments.map((doc) => {
           user = allUsers.find((data) => data.boleta === doc.boleta);
@@ -27,8 +28,6 @@ const DocumentationInicialReviewContainer = () => {
           };
         })
       : {};
-
-  console.log(inicialDocumentationRequestMock);
 
   return (
     <div className="container">
@@ -42,7 +41,7 @@ const DocumentationInicialReviewContainer = () => {
           </tr>
         </thead>
         <tbody>
-          {inicialDocumentationRequestMock.map((item, i) => {
+          {finalDocumentationRequestMock.map((item, i) => {
             return (
               <DocumentationInicialReviewItem key={item.boleta} item={item} />
             );
@@ -54,4 +53,4 @@ const DocumentationInicialReviewContainer = () => {
   );
 };
 
-export default DocumentationInicialReviewContainer;
+export default DocumentationFinalReviewContainer;

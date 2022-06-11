@@ -4,7 +4,7 @@ import "animate.css";
 import { useDispatch } from "react-redux";
 import { openModalAction, setActiveStudent, setTypeOfModal } from "../../actions/ui";
 
-const DocumentationInicialReviewItem = ({item}) => {
+const DocumentationFinalReviewItem = ({item}) => {
   const { boleta, name, carrera, doc, validated } = item;
 
 
@@ -28,4 +28,4 @@ const DocumentationInicialReviewItem = ({item}) => {
   );
 };
 
-export default DocumentationInicialReviewItem;
+export default DocumentationFinalReviewItem;

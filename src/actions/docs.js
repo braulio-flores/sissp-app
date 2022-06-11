@@ -69,3 +69,59 @@ export const requestDocClicked = (myDoc) => {
   };
   
 };
+
+// CREAREMOS ACCION PARA CREAR PROFESORES
+export const startCreateProfesor = (prof) => {
+  // AQUI SE TIENE QUE HACER EL ENVIO DE LA SOLICITUD A LA DB
+  return async (dispatch) => {
+    Swal.fire({
+      title: "Creando Profesor",
+      text: "Guardando Información.",
+      allowEscapeKey: false,
+      showConfirmButton: false,
+      allowOutsideClick: false,
+
+      // onBeforeOpen: () => {
+      //   Swal.showLoading();
+      // },
+    });
+
+    await axios
+      .post(`${variables.REACT_APP_URL_API}professors/`, { ...prof })
+      .then((res) => {
+        console.log(res.data.eventDB);
+        // Swal.close();
+        // dispatch(updateProfesRedux());
+
+        Swal.fire({
+          title: "Profesor Creado",
+          text: "Se ha mandado tu solicitud de validacion exitosamente",
+          icon: "success",
+          confirmButtonText: "ok",
+        });
+      })
+      .catch((error) => {
+        Swal.close();
+
+        Swal.fire({
+          title: "Validacion Fallida",
+          text: error,
+          icon: "error",
+          confirmButtonText: "ok",
+        });
+      });
+  };
+
+  // ESTE SOLO ESTA SIMULANDO LO QUE ES UNA PETICION ASINCRONA
+
+  // DESPUES SE DEBE DE HACER UN DISPATCH PARA CAMBIAR EL ESTADO EN REDUX
+};
+
+export const requestValidationClicked = (myValidation) => {
+  // AQUI SE TIENE QUE HACER UN START REQUESTVALIDATION QUE LO QUE HARA SERA EL ENVIO DE LA SOLICITUD A LA DB
+
+  return {
+    type: types.uiRequestValidation,
+    payload: myValidation,
+  };
+};

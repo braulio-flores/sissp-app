@@ -123,11 +123,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeSituation(true)}
-                name="inlineCheckbox1"
+                name="inscritoRadio"
+                id="inscritoRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="inscritoRadio1">
                 Inscrito
               </label>
             </div>
@@ -137,10 +138,11 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeSituation(true)}
-                name="inlineCheckbox1"
+                name="inscritoRadio"
+                id="inscritoRadio2"
                 value="option2"
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="inscritoRadio2">
                 Egresado
               </label>
             </div>
@@ -148,12 +150,13 @@ const FormInicialRequest = () => {
               <input
                 className="form-check-input"
                 type="radio"
-                name="inlineCheckbox1"
+                name="inscritoRadio"
+                id="inscritoRadio3"
                 value="option2"
                 onChange={() => handleInputChangeSituation(false)}
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="inscritoRadio3">
                 Otra
               </label>
             </div>
@@ -182,11 +185,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeConstance(true)}
-                name="inlineCheckbox1"
+                name="constanciaRadio"
+                id="constanciaRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="constanciaRadio1">
                 Si
               </label>
             </div>
@@ -195,11 +199,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeConstance(false)}
-                name="inlineCheckbox1"
+                name="constanciaRadio"
+                id="constanciaRadi2"
                 value="option2"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="constanciaRadi2">
                 No
               </label>
             </div>
@@ -236,11 +241,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeNSS(true)}
-                name="inlineCheckbox1"
+                name="ssRadio"
+                id="ssRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="ssRadio1">
                 Si
               </label>
             </div>
@@ -249,11 +255,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeNSS(false)}
-                name="inlineCheckbox1"
+                name="ssRadio"
+                id="ssRadio2"
                 value="option2"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="ssRadio2">
                 No
               </label>
             </div>
@@ -291,11 +298,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeCURP(true)}
-                name="inlineCheckbox1"
+                name="curpRadio"
+                id="curpRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="curpRadio1">
                 Si
               </label>
             </div>
@@ -304,11 +312,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeCURP(false)}
-                name="inlineCheckbox1"
+                name="curpRadio"
+                id="curpRadio2"
                 value="option2"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="curpRadio2">
                 No
               </label>
             </div>
@@ -346,11 +355,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeMail(true)}
-                name="inlineCheckbox1"
+                name="correoRadio"
+                id="correoRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="correoRadio1">
                 Si
               </label>
             </div>
@@ -359,11 +369,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangeMail(false)}
-                name="inlineCheckbox1"
+                name="correoRadio"
+                id="correoRadio2"
                 value="option2"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="correoRadio2">
                 No
               </label>
             </div>
@@ -440,11 +451,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangePlace(true)}
-                name="inlineCheckbox1"
+                name="registroRadio"
+                id="registroRadio1"
                 value="option1"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox1">
+              <label className="form-check-label" htmlFor="registroRadio1">
                 Si
               </label>
             </div>
@@ -453,11 +465,12 @@ const FormInicialRequest = () => {
                 className="form-check-input"
                 type="radio"
                 onChange={() => handleInputChangePlace(false)}
-                name="inlineCheckbox1"
+                name="registroRadio"
+                id="registroRadio2"
                 value="option2"
                 required
               />
-              <label className="form-check-label" htmlFor="inlineCheckbox2">
+              <label className="form-check-label" htmlFor="registroRadio2">
                 No
               </label>
             </div>

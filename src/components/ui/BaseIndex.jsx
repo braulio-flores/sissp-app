@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { getValidations } from "../../helpers/getValidations";
 import { getQuestions } from "../../helpers/getQuestions";
 import { getDocuments } from "../../helpers/getDocuments";
+import DocumentationFinalReviewComponent from "../admin/DocumentationFinalReviewComponent";
 // import NavBar from "./NavBar";
 
 const BaseIndex = () => {
@@ -34,7 +35,7 @@ const BaseIndex = () => {
         <Route exact path="index/enlaces" element={<EnlacesComponent />} />
         <Route exact path="index/admin/validation" element={<ValidationRequestsComponent />} />
         <Route exact path="index/admin/documentationI" element={<DocumentationInicialReviewComponent />} />
-        {/* <Route exact path="index/admin/documentationF" element={<DocumentationReviewComponent />} /> */}
+        <Route exact path="index/admin/documentationF" element={<DocumentationFinalReviewComponent />} />
         <Route exact path="index/admin/manageprof" element={<ManageProffesorsComponent />} />
         <Route exact path="/*" element={<HomeMain />} />
         <Route exact path="*" element={<HomeMain />} />

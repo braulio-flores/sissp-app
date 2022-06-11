@@ -15,6 +15,7 @@ const FinalDocumentationComponent = () => {
   const { myDocument } = useSelector((data) => data.docs);
   const data = useSelector((data) => data.docs);
 
+  console.log('myDocument', data);
 
   const handleSubmitFormDocs = (e) => {
     e.preventDefault();
@@ -25,6 +26,7 @@ const FinalDocumentationComponent = () => {
     updateDocumentation(user.boleta, {
       ...myDocument,
       inicialOrFinal: false,
+      validated: false, 
       retry: false,
       comment: "",
     });
@@ -67,6 +69,7 @@ const FinalDocumentationComponent = () => {
     });
   };
 
+  console.log(myDocument);
   return (
     <>
       {/* ESTE TITULO SE MANDARA CUANDO ESTE CON ENVIO PERO DE INICIO */}

@@ -218,9 +218,10 @@ export const deleteActiveStudent = () => {
   };
 };
 
-export const openModalAction = () => {
+export const openModalAction = (docOpen) => {
   return {
     type: types.uiOpenModal,
+    payload: docOpen
   };
 };
 
